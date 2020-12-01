@@ -40,6 +40,6 @@ public class Parse {
         }
         catch(equalException e){System.out.print(e.getMessage()+": no equal sign.");}
         catch(noExpressionException e){System.out.print(e.getMessage()+" is not a valid expression.");}
-        catch(Exception e){System.out.println("Encountered an error.");e.printStackTrace();}
+        catch(Exception e){System.out.println("Encountered an error.");}
     }
 }
