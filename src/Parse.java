@@ -17,8 +17,9 @@ public class Parse {
             if(elementsExp.size()<=2){throw new noExpressionException(input);}
             for(int i=1; i<Elements.size();i++){
                 if((Elements.get(i-1).equals("*")&&Elements.get(i).equals("-"))){Elements.set(i,"Neg"); Elements.remove(i-1);}
-                if((Elements.get(i-1).equals("/")&&Elements.get(i).equals("-"))){Elements.set(i,"Ng"); Elements.remove(i-1);}
-                else if(((Elements.get(i-1).equals("/")||Elements.get(i-1).equals("*"))&&Elements.get(i).equals("+"))){Elements.set(i,"*"); Elements.remove(i-1);}
+                else if((Elements.get(i-1).equals("/")&&Elements.get(i).equals("-"))){Elements.set(i,"Ng"); Elements.remove(i-1);}
+                else if((Elements.get(i-1).equals("-")&&Elements.get(i).equals("-"))){Elements.set(i,"+"); Elements.remove(i-1);}
+                else if((Elements.get(i-1).equals("+")&&Elements.get(i).equals("-"))){Elements.set(i,"-"); Elements.remove(i-1);}
             }
             for(int i=1; i<Elements.size();i++){
                 if(signs.contains(Elements.get(i))&&(signs.contains(Elements.get(i-1))||i==Elements.size()-1)){
