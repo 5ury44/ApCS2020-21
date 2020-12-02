@@ -10,10 +10,22 @@ public class ParseCalc {
                 try {
                     double temp = Double.parseDouble(Elements.get(i-1));
                     switch (oppList.get(i)) {
-                        case "/" -> temp /= Double.parseDouble(Elements.get(i));
+                        case "/" -> {
+                            if(Double.parseDouble(Elements.get(i))==0){
+                                System.out.println("There was a division error.");
+                                System.exit(0);
+                            }
+                            temp /= Double.parseDouble(Elements.get(i));
+                        }
                         case "*" -> temp *= Double.parseDouble(Elements.get(i));
                         case "Neg" -> temp *= -1 * Double.parseDouble(Elements.get(i));
-                        case "Ng" -> temp /= -1 * Double.parseDouble(Elements.get(i));
+                        case "Ng" -> {
+                            if(Double.parseDouble(Elements.get(i))==0){
+                                System.out.println("There was a division error.");
+                                System.exit(0);
+                            }
+                            temp /= -1 * Double.parseDouble(Elements.get(i));
+                        }
                     }
                     Elements.set(i-1, String.valueOf(temp));
                     Elements.remove(i);
@@ -37,7 +49,7 @@ public class ParseCalc {
                 z++;
             } catch (Exception e) {}
         }
-        DecimalFormat f = new DecimalFormat("##.000000");
+        DecimalFormat f = new DecimalFormat("#0.000000");
         System.out.println(f.format(result));
     }
 }
