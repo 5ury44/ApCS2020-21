@@ -49,7 +49,7 @@ public class ParseCalc {
                 z++;
             } catch (Exception e) {}
         }
-        DecimalFormat f = new DecimalFormat("#0.000000");
+        DecimalFormat f = new DecimalFormat("##.##########");
         System.out.println(f.format(result));
     }
 }
