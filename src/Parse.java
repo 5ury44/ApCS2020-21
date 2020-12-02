@@ -23,7 +23,7 @@ public class Parse {
             }
             for(int i=1; i<Elements.size();i++){
                 if(signs.contains(Elements.get(i))&&(signs.contains(Elements.get(i-1))||i==Elements.size()-1)){
-                    if(((Elements.get(i).equals("-")||Elements.get(i).equals("+"))&&Elements.get(i-1).equals("="))){continue;}
+                    if(((Elements.get(i).equals("-"))&&Elements.get(i-1).equals("="))){continue;}
                     throw new noExpressionException(input);
                 }
             }
