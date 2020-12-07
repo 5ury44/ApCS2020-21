@@ -4,7 +4,6 @@ import java.util.List;
 
 public class ParseCalc {
     public void calculate(List<String> Elements, List<String> oppList){
-        Elements.removeAll(Collections.singleton("")); //delete empty space
         for(int i=0;i< oppList.size();i++){
             if(oppList.get(i).equals("*")||oppList.get(i).equals("/")||oppList.get(i).equals("Ng")||oppList.get(i).equals("Neg")){
                 try {
