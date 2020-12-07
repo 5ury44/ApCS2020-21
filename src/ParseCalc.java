@@ -1,64 +1,55 @@
-import java.util.*;
+import java.text.DecimalFormat;
+import java.util.Collections;
+import java.util.List;
 
-public class Parse {
-    static class equalException extends Exception{public equalException(String x){super(x);}} //create a new custom exception
-    static class noExpressionException extends Exception{public noExpressionException(String x){super(x);}}
-    static ArrayList<String> split(String str, ArrayList<String> del) throws noExpressionException {
-        ArrayList<String> result = new ArrayList<>(Collections.singletonList(""));
-        String S="";
-        for (int i = 1; i < str.length(); i++){
-            if(!del.contains(Character.toString(str.charAt(i))))S+=Character.toString(str.charAt(i)); //alternative for split
-            else if(S.equals(".")){throw new noExpressionException("");}
-            else{result.add(S);S="";}
-        }
-        if(!S.equals("."))result.add(S);
-        else throw new noExpressionException("");
-        return result;
-    }
-    static ArrayList<String> split2(String str, ArrayList<String> del){
-        ArrayList<String> result = new ArrayList<>(Collections.singletonList(""));
-        for (int i = 0; i < str.length(); i++){if(!del.contains(Character.toString(str.charAt(i))))result.add(Character.toString(str.charAt(i)));} //alternative for split
-        return result;
-    }
-    public static void main(String[] args) {
-        Set<String> signs = new HashSet<>(Arrays.asList("+","-","*","/","="));
-        try {
-            ParseCalc parse = new ParseCalc();
-            List<String> oppList = new ArrayList<>();
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("please enter the expression");
-            String input = scanner.nextLine();
-            List<String> elementsExp = Parse.split(input, new ArrayList<>(Arrays.asList("-","+","=","*","/"))); //input splitting w/out signs
-            List<String> Elements = Parse.split2(input, new ArrayList<>(Arrays.asList(""))); //input split w/ all signs
-            Elements.remove(0);
-            if(!Elements.get(0).equals("=")){throw new equalException(input);}
-            if(elementsExp.size()<=2){throw new noExpressionException(input);} //check for errors of no expression or no equal sign
-            for(int i=1; i<Elements.size();i++){
-                if((Elements.get(i-1).equals("*")&&Elements.get(i).equals("-"))){Elements.set(i,"Neg"); Elements.remove(i-1);}
-                else if((Elements.get(i-1).equals("/")&&Elements.get(i).equals("-"))){Elements.set(i,"Ng"); Elements.remove(i-1);}
-                else if((Elements.get(i-1).equals("-")&&Elements.get(i).equals("-"))){Elements.set(i,"+"); Elements.remove(i-1);} //replace +-, --, *-, or /- with a single sign
-                else if((Elements.get(i-1).equals("+")&&Elements.get(i).equals("-"))){Elements.set(i,"-"); Elements.remove(i-1);}
+public class ParseCalc {
+    public void calculate(List<String> Elements, List<String> oppList){
+        Elements.removeAll(Collections.singleton("")); //delete empty space
+        for(int i=0;i< oppList.size();i++){
+            if(oppList.get(i).equals("*")||oppList.get(i).equals("/")||oppList.get(i).equals("Ng")||oppList.get(i).equals("Neg")){
+                try {
+                    double temp = Double.parseDouble(Elements.get(i-1));
+                    switch (oppList.get(i)) {
+                        case "/" -> {
+                            if(Double.parseDouble(Elements.get(i))==0){
+                                System.out.println("There was a division error."); //check for 0 division
+                                System.exit(0);
+                            }
+                            temp /= Double.parseDouble(Elements.get(i)); //divide
+                        }
+                        case "*" -> temp *= Double.parseDouble(Elements.get(i)); //multiply
+                        case "Neg" -> temp *= -1 * Double.parseDouble(Elements.get(i)); //negative multiply
+                        case "Ng" -> {
+                            if(Double.parseDouble(Elements.get(i))==0){
+                                System.out.println("There was a division error."); //0 division
+                                System.exit(0);
+                            }
+                            temp /= -1 * Double.parseDouble(Elements.get(i)); //negative divide
+                        }
+                    }
+                    Elements.set(i-1, String.valueOf(temp));
+                    Elements.remove(i);
+                    oppList.remove(i); //replace and take away other number and sign used in previous calculation
+                    i--;
+                }catch (Exception e){}
             }
-            for(int i=1; i<Elements.size();i++){
-                if(signs.contains(Elements.get(i))&&(signs.contains(Elements.get(i-1))||i==Elements.size()-1)){
-                    if(((Elements.get(i).equals("-"))&&Elements.get(i-1).equals("="))){continue;} //check if not expression
-                    throw new noExpressionException(input);
+        }
+        double result;
+        if(oppList.get(0).equals("-")){result = Double.parseDouble(Elements.get(0))*-1;} //make first negative if needed
+        else{result = Double.parseDouble(Elements.get(0));}
+        oppList.remove(0);
+        Elements.remove(0);
+        int z=0;
+        for (String element : Elements) {
+            try {
+                switch (oppList.get(z)) {
+                    case "+" -> result += Double.parseDouble(element); //add or subtract element
+                    case "-" -> result -= Double.parseDouble(element);
                 }
-            }
-            if(!Elements.get(1).equals("+")&&!Elements.get(1).equals("-")){oppList.add("+");}
-            for(String s:Elements){
-                try{Double.parseDouble(s);}
-                catch(Exception e){
-                    if(signs.contains(s)||s.equals("Neg")||s.equals("Ng")){oppList.add(s);}  //add to operation list
-                    else if(!s.equals(".")){throw new noExpressionException(input);}
-            }
-            }
-            oppList.remove("=");
-            parse.calculate(elementsExp,oppList); //calculate with numbers and signs lists
-            scanner.close();
+                z++;
+            } catch (Exception e) {}
         }
-        catch(equalException e){System.out.print(e.getMessage()+": no equal sign.");}
-        catch(noExpressionException e){System.out.print(e.getMessage()+" this is not a valid expression.");} //print statements when exceptions caught
-        catch(Exception e){System.out.println("Encountered an error.");}
+        DecimalFormat f = new DecimalFormat("##.##########");
+        System.out.println(f.format(result)); //print result
     }
 }
