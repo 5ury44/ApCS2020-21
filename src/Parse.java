@@ -3,14 +3,16 @@ import java.util.*;
 public class Parse {
     static class equalException extends Exception{public equalException(String x){super(x);}} //create a new custom exception
     static class noExpressionException extends Exception{public noExpressionException(String x){super(x);}}
-    static ArrayList<String> split(String str, ArrayList<String> del){
+    static ArrayList<String> split(String str, ArrayList<String> del) throws noExpressionException {
         ArrayList<String> result = new ArrayList<>(Collections.singletonList(""));
         String S="";
         for (int i = 1; i < str.length(); i++){
             if(!del.contains(Character.toString(str.charAt(i))))S+=Character.toString(str.charAt(i)); //alternative for split
+            else if(S.equals(".")){throw new noExpressionException("");}
             else{result.add(S);S="";}
         }
-        result.add(S);
+        if(!S.equals("."))result.add(S);
+        else throw new noExpressionException("");
         return result;
     }
     static ArrayList<String> split2(String str, ArrayList<String> del){
@@ -26,8 +28,8 @@ public class Parse {
             Scanner scanner = new Scanner(System.in);
             System.out.println("please enter the expression");
             String input = scanner.nextLine();
-            List<String> elementsExp = Parse.split(input, new ArrayList<>(Arrays.asList("-","+","=","*","/"))); //input splitting w/out signs
-            List<String> Elements = Parse.split2(input, new ArrayList<>(Arrays.asList(""))); //input split w/ all signs
+            List<String> elementsExp = Parse.split(input, new ArrayList<>(Arrays.asList("-","+","=","*","/"," "))); //input splitting w/out signs
+            List<String> Elements = Parse.split2(input, new ArrayList<>(Arrays.asList(" "))); //input split w/ all signs
             Elements.remove(0);
             if(!Elements.get(0).equals("=")){throw new equalException(input);}
             if(elementsExp.size()<=2){throw new noExpressionException(input);} //check for errors of no expression or no equal sign
