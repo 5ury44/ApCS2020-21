@@ -32,7 +32,6 @@ public class Parse {
             List<String> Elements = Parse.split2(input, new ArrayList<>(Arrays.asList(" "))); //input split w/ all signs
             Elements.remove(0);
             if(!Elements.get(0).equals("=")){throw new equalException(input);}
-            if(elementsExp.size()<=2){throw new noExpressionException(input);} //check for errors of no expression or no equal sign
             for(int i=1; i<Elements.size();i++){
                 if((Elements.get(i-1).equals("*")&&Elements.get(i).equals("-"))){Elements.set(i,"Neg"); Elements.remove(i-1);}
                 else if((Elements.get(i-1).equals("/")&&Elements.get(i).equals("-"))){Elements.set(i,"Ng"); Elements.remove(i-1);}
@@ -41,7 +40,7 @@ public class Parse {
             }
             for(int i=1; i<Elements.size();i++){
                 if(signs.contains(Elements.get(i))&&(signs.contains(Elements.get(i-1))||i==Elements.size()-1)){
-                    if(((Elements.get(i).equals("-"))&&Elements.get(i-1).equals("="))){continue;} //check if not expression
+                    if((i==1&&(Elements.get(i).equals("-"))&&Elements.get(0).equals("="))){continue;} //check if not expression
                     throw new noExpressionException(input);
                 }
             }
@@ -54,6 +53,8 @@ public class Parse {
             }
             }
             oppList.remove("=");
+            elementsExp.removeAll(Collections.singleton("")); //delete empty space
+            if(elementsExp.size()<=1){throw new noExpressionException(input);} //check for errors of no expression or no equal sign
             parse.calculate(elementsExp,oppList); //calculate with numbers and signs lists
             scanner.close();
         }
