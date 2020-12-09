@@ -7,9 +7,9 @@ public class Parse {
         ArrayList<String> result = new ArrayList<>(Collections.singletonList(""));
         String S="";
         for (int i = 1; i < str.length(); i++){
-            if(!del.contains(Character.toString(str.charAt(i))))S+=Character.toString(str.charAt(i)); //alternative for split
+            if(!Character.isWhitespace((str.charAt(i)))&&!del.contains(Character.toString(str.charAt(i))))S+=Character.toString(str.charAt(i)); //alternative for split
             else if(S.equals(".")){throw new noExpressionException("");}
-            else{result.add(S);S="";}
+            else if(!Character.isWhitespace((str.charAt(i)))){result.add(S);S="";}
         }
         if(!S.equals("."))result.add(S);
         else throw new noExpressionException("");
@@ -17,7 +17,7 @@ public class Parse {
     }
     static ArrayList<String> split2(String str, ArrayList<String> del){
         ArrayList<String> result = new ArrayList<>(Collections.singletonList(""));
-        for (int i = 0; i < str.length(); i++){if(!del.contains(Character.toString(str.charAt(i))))result.add(Character.toString(str.charAt(i)));} //alternative for split
+        for (int i = 0; i < str.length(); i++){if(!Character.isWhitespace((str.charAt(i)))&&!del.contains(Character.toString(str.charAt(i))))result.add(Character.toString(str.charAt(i)));} //alternative for split
         return result;
     }
     public static void main(String[] args) {
@@ -28,8 +28,8 @@ public class Parse {
             Scanner scanner = new Scanner(System.in);
             System.out.println("please enter the expression");
             String input = scanner.nextLine();
-            List<String> elementsExp = Parse.split(input, new ArrayList<>(Arrays.asList("-","+","=","*","/"," "))); //input splitting w/out signs
-            List<String> Elements = Parse.split2(input, new ArrayList<>(Arrays.asList(" "))); //input split w/ all signs
+            List<String> elementsExp = Parse.split(input, new ArrayList<>(Arrays.asList("-","+","=","*","/"))); //input splitting w/out signs
+            List<String> Elements = Parse.split2(input, new ArrayList<>(Arrays.asList(""))); //input split w/ all signs
             Elements.remove(0);
             if(!Elements.get(0).equals("=")){throw new equalException(input);}
             for(int i=1; i<Elements.size();i++){
