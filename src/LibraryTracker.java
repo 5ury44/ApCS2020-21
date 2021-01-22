@@ -94,10 +94,3 @@ public class LibraryTracker {
         else{books.remove(i);}
     }
 }
-
-/*
-* - check years in valid check
-* -alg and sort
-* -verify search on returned books after sort and also try with many books
-* -check search on borrowed books after sort addition
-*  */
