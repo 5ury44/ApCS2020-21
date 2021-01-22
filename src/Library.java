@@ -7,7 +7,7 @@ public class Library {
         BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));
         LibraryTracker libraryTracker = new LibraryTracker();
         while(true){
-            try {
+            try { //options
                 System.out.println("Please Select Option. A=Add book, P=Print Available Books by Author, L=Loan Out a Book, R=Return Book, B=Print Borrowed Books, O=Print Overdue Books, D=Delete Book, T=Print Total Books in Library, S=Search for Book, Q=Quit.");
                 String in = scanner.readLine();
                 if (in.equals("Q")) {
