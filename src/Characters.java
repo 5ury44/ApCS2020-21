@@ -47,7 +47,7 @@ public class Characters {
     }
     static void Vowel(int characters, String[] Words, int[] Numbers){
         Set<String> vowels = new HashSet<>(Arrays.asList("a","e","i","o","u"));
-        Set<String> consonants = new HashSet<>(Arrays.asList("b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "x"));
+        Set<String> consonants = new HashSet<>(Arrays.asList("b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "x","y","z"));
         System.out.println("Total Characters: "+ characters);
         int vow=0, cons=0, others=0;
         for(int j=0; j<Words.length;j++){
