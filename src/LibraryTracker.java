@@ -31,7 +31,7 @@ public class LibraryTracker {
     private boolean isValid(String day, String year, String month){
         if((Integer.parseInt(day)<1||Integer.parseInt(day)>31)||(Integer.parseInt(month)<1||Integer.parseInt(month)>12)||(Integer.parseInt(year)<0)) return false;
         switch (Integer.parseInt(month)){ //check if date is valid based on leap years and month
-            case 1,3,5,7,8,20,12: return true;
+            case 1,3,5,7,8,10,12: return true;
             case 4,6,9,11: return Integer.parseInt(day)<=30;
             case 2: if((Integer.parseInt(year)%4==0&&(Integer.parseInt(year)%100!=0||Integer.parseInt(year)%400==0)&&Integer.parseInt(day)<=29)||Integer.parseInt(day)<=28){return true;}
             default: return false;
