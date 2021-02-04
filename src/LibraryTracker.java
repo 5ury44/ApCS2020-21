@@ -33,7 +33,7 @@ public class LibraryTracker {
         switch (Integer.parseInt(month)){ //check if date is valid based on leap years and month
             case 1,3,5,7,8,20,12: return true;
             case 4,6,9,11: return Integer.parseInt(day)<=30;
-            case 2: if((Integer.parseInt(year)%4==0&&(Integer.parseInt(year)%100!=0||Integer.parseInt(year)%400==0)&Integer.parseInt(day)<=29)||Integer.parseInt(day)<=28){return true;}
+            case 2: if((Integer.parseInt(year)%4==0&&(Integer.parseInt(year)%100!=0||Integer.parseInt(year)%400==0)&&Integer.parseInt(day)<=29)||Integer.parseInt(day)<=28){return true;}
             default: return false;
         }
     }
