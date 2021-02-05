@@ -19,14 +19,14 @@ public class LibraryTracker {
                 monthCount += months[i];
             }
         }
-        for (int i = 0; i < Integer.parseInt(splitDate[0]); i++) {
+        for (int i = 0; i < Integer.parseInt(splitDate[0])-1; i++) {
             if (i == 1 && Integer.parseInt(splitDate[2]) % 4 == 0 && (Integer.parseInt(splitDate[2]) % 100 != 0 || Integer.parseInt(splitDate[2]) % 400 == 0)) {
                 monthCount += 29;
                 continue;
             }
             monthCount += months[i];
         }
-        return monthCount;
+        return monthCount+(Integer.parseInt(splitDate[1]));
     }
     private boolean isValid(String day, String year, String month){
         if((Integer.parseInt(day)<1||Integer.parseInt(day)>31)||(Integer.parseInt(month)<1||Integer.parseInt(month)>12)||(Integer.parseInt(year)<0)) return false;
