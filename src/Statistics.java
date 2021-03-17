@@ -41,6 +41,6 @@ public class Statistics {
                 prev=(int)arr[i];
             }
         }
-        System.out.println("All available modes have been printed.");
+        System.out.println("All available modes have been printed");
     }
 }
