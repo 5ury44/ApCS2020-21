@@ -28,6 +28,7 @@ public class fraction implements number {
         if(numerator==0){System.out.println("0");}
         else if(denom==1){System.out.println(numerator);}
         else if(denom==numerator){System.out.println(1);}
+        else if(denom==-1*numerator){System.out.println(-1);}
         else{System.out.println(numerator+"/"+denom);}
     }
     @Override
