@@ -95,9 +95,9 @@ public class calcMain {
                     String sign = sign(ex);
                     if (sign.equals("s")) {
                         System.out.println("ss");
-                        ((ImaginaryFrac) imaginary.subtract(imaginary1)).print();
+                        ((ImaginaryFrac) imaginary1.subtract(imaginary)).print();
                     } else if (sign.equals("a")) {
-                        ((ImaginaryFrac) imaginary1.add(imaginary)).print();
+                        ((ImaginaryFrac) imaginary.add(imaginary1)).print();
                     } else if (sign.equals("m")) {
                         ((ImaginaryFrac) imaginary.multiply(imaginary1)).print();
                     } else if (sign.equals("d")) {
