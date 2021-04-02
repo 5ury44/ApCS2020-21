@@ -15,7 +15,9 @@ public class ImaginaryFrac implements number{
         }
         else if(nr==0){System.out.println(ni+"/"+di+"i");}
         else if(ni==0){System.out.println(nr+"/"+dr);}
-        else{System.out.println(nr+"/"+dr+" "+ni+"/"+di+"i");}
+        else if(nr==dr){System.out.println("1+ "+ni+"/"+di+"i");}
+        else if(ni==di){System.out.println(nr+"/"+dr+" +1");}
+        else{System.out.println(nr+"/"+dr+" + "+ni+"/"+di+"i");}
     }
     @Override
     public number add(number num) {
